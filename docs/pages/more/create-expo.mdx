@@ -1,167 +1,221 @@
----
-title: create-expo-app
-maxHeadingDepth: 4
-description: A command-line tool to create a new Expo and React Native project.
----
+// Project: Select Accountancy App (Expo React Native starter)
+// Files included below. Copy each file into your Expo project.
 
-import { Terminal } from '~/ui/components/Snippet';
-import { Tab, Tabs } from '~/ui/components/Tabs';
-
-`create-expo-app` is a command-line tool to create and set up a new Expo and React Native project. This tool simplifies the initialization process by providing various templates to get started quickly without the need for manual configuration.
-
-## Create a new project
-
-To create a new project, run the following command:
-
-<Tabs>
-
-<Tab label="npm">
-
-<Terminal cmd={['$ npx create-expo-app@latest']} />
-
-</Tab>
-
-<Tab label="Yarn">
-
-<Terminal cmd={['$ yarn create expo-app']} />
-
-</Tab>
-
-<Tab label="pnpm">
-
-<Terminal cmd={['$ pnpm create expo-app']} />
-
-</Tab>
-
-<Tab label="Bun">
-
-<Terminal cmd={['$ bun create expo']} />
-
-</Tab>
-
-</Tabs>
-
-Running the above command will prompt you to enter the app name of your project. This app name is also used in the app config's [`name`](/versions/latest/config/app/#name) property.
-
-<Terminal cmd={['What is your app named? my-app']} />
-
-## Options
-
-Uses the following options to customize the command behavior.
-
-### `--yes`
-
-Uses the default options to create a new project.
-
-### `--no-install`
-
-Skips installing npm dependencies or CocoaPods.
-
-### `--template`
-
-Running `create-expo-app` with a [Node Package Manager](#node-package-managers-support) initializes and sets up a new Expo project using the default template.
-
-You can use the `--template` option to select one of the following templates or pass it as an argument to the option. For example, `--template default`.
-
-> **info** Looking for more templates? Check out the [`--example`](#--example) option to initialize your project with one of the example apps that demonstrate specific features and integrations.
-
-| Template                                                                                              | Description                                                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`default`](https://github.com/expo/expo/tree/main/templates/expo-template-default)                   | Default template. Designed to build multi-screen apps. Includes recommended tools such as Expo CLI, Expo Router library and TypeScript configuration enabled. Suitable for most apps. |
-| [`blank`](https://github.com/expo/expo/tree/main/templates/expo-template-blank)                       | Installs minimum required npm dependencies without configuring navigation.                                                                                                            |
-| [`blank-typescript`](https://github.com/expo/expo/tree/main/templates/expo-template-blank-typescript) | A Blank template with TypeScript enabled.                                                                                                                                             |
-| [`tabs`](https://github.com/expo/expo/tree/main/templates/expo-template-tabs)                         | Installs and configures file-based routing with Expo Router and TypeScript enabled.                                                                                                   |
-| [`bare-minimum`](https://github.com/expo/expo/tree/main/templates/expo-template-bare-minimum)         | A Blank template with native directories (**android** and **ios**) generated. Runs [`npx expo prebuild`](/workflow/prebuild/) during the setup.                                       |
-
-### `--example`
-
-Use this option to initialize a project using an example from [expo/examples](https://github.com/expo/examples).
-
-For example:
-
-- Running `npx create-expo-app --example with-router` sets up a project with the Expo Router library
-- Running `npx create-expo-app --example with-react-navigation` sets up a project similar to the default template, but configured with plain React Navigation library
-
-### `--version`
-
-Prints the version number and exits.
-
-### `--help`
-
-Prints the list of available options and exits.
-
-## Node Package Managers support
-
-Creating a new project with `create-expo-app` also handles setting up additional configuration needed for a specific Node Package Manager.
-
-**If you are migrating from one package manager to another**, you've to manually carry out the additional configuration in your project. **If you are using [EAS](/eas/)**, you also have to configure your project for any additional required steps manually.
-
-All the additional steps for each package manager are listed below.
-
-### npm
-
-#### Local installation
-
-npm is installed as part of Node.js installation. See [Node.js documentation](https://nodejs.org/en/download/package-manager) for installation instructions.
-
-#### EAS installation
-
-Supported by default if the project directory contains **package-lock.json**.
-
-### Yarn 1 (Classic)
-
-#### Local installation
-
-Yarn 1 (Classic) is usually installed as a global dependency of npm. See [Yarn 1 documentation](https://classic.yarnpkg.com/en/docs/getting-started) for installation instructions.
-
-#### EAS installation
-
-Supported by default if the project directory contains **yarn.lock**.
-
-### Yarn 2+ (Modern)
-
-#### Local installation
-
-See [Yarn documentation](https://yarnpkg.com/getting-started/install) for installation instructions.
-
-Yarn 2+ handles package management differently than Yarn 1. One of the core changes in Yarn 2+ is the [Plug'n'Play (PnP)](https://yarnpkg.com/features/pnp) node linking model that does not work with React Native.
-
-By default, a project created with `create-expo-app` and Yarn 2+ uses [`nodeLinker`](https://yarnpkg.com/features/linkers#nodelinker-node-modules) with its value set to `node-modules` to install dependencies.
-
-```yaml .yarnrc.yml
-nodeLinker: node-modules
-```
-
-#### EAS installation
-
-Yarn Modern on EAS requires adding [`eas-build-pre-install` hook](/build-reference/npm-hooks/). In your project's **package.json**, add the following configuration:
-
-```json package.json
+// package.json
 {
+  "name": "select-accountancy-app",
+  "version": "1.0.0",
+  "main": "node_modules/expo/AppEntry.js",
   "scripts": {
-    "eas-build-pre-install": "corepack enable && yarn set version 4"
+    "start": "expo start",
+    "android": "expo run:android",
+    "ios": "expo run:ios",
+    "web": "expo start --web"
+  },
+  "dependencies": {
+    "expo": "~48.0.0",
+    "react": "18.2.0",
+    "react-native": "0.71.8",
+    "@react-navigation/native": "^6.1.6",
+    "@react-navigation/native-stack": "^6.9.12",
+    "expo-status-bar": "~1.4.4",
+    "react-native-safe-area-context": "4.5.0",
+    "react-native-screens": "^3.20.0",
+    "@react-native-async-storage/async-storage": "^1.17.11"
   }
 }
-```
 
-### pnpm
+// README.md
+# Select Accountancy - Expo Starter
 
-#### Local installation
+This is a minimal Expo React Native starter app I created for you.
 
-Requires installing Node.js. See [pnpm documentation](https://pnpm.io/installation) for installation instructions.
+## Features included
+- Splash + simple header
+- Email/password mock Login (no backend) with AsyncStorage
+- Home screen with a simple card list
+- Contact screen with a form (sends to device email composer placeholder)
+- Basic navigation (stack)
 
-By default, a project created with `create-expo-app` and pnpm uses [`node-linker`](https://pnpm.io/npmrc#node-linker) with its value set to `hoisted` to install dependencies.
+## How to run
+1. Install dependencies: `npm install` or `yarn`
+2. Start Expo: `expo start`
+3. Use Expo Go (Android/iOS) to preview or run on a simulator.
 
-```ini .npmrc
-node-linker=hoisted
-```
+## Build
+Use EAS (Expo Application Services) or `expo run:android` / `expo run:ios` (requires native toolchains).
 
-> **info** From **SDK 54**, Expo supports isolated installations, and you can delete the `node-linker` setting if you prefer to use isolated dependencies.
 
-#### EAS installation
+// app.json (minimal)
+{
+  "expo": {
+    "name": "Select Accountancy",
+    "slug": "select-accountancy-app",
+    "version": "1.0.0",
+    "sdkVersion": "48.0.0",
+    "platforms": ["ios","android","web"],
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#2563EB"
+    }
+  }
+}
 
-Supported by default if the project directory contains **pnpm-lock.yaml**.
+// /App.js
+import React, { useState, useEffect } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { SafeAreaView, View, Text, Button, TextInput, StyleSheet, TouchableOpacity, FlatList, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { StatusBar } from 'expo-status-bar';
 
-### Bun
+const Stack = createNativeStackNavigator();
 
-See [Bun](/guides/using-bun/) guide for details on creating a new Expo project with `bun`, migration from another package manager, and usage with EAS.
+function SplashScreen({ navigation }) {
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      const user = await AsyncStorage.getItem('user');
+      navigation.replace(user ? 'Home' : 'Login');
+    }, 800);
+    return () => clearTimeout(timer);
+  }, []);
+
+  return (
+    <SafeAreaView style={styles.center}>
+      <Text style={styles.title}>Select Accountancy</Text>
+      <Text style={{ marginTop: 8 }}>Your finance & accounting helper</Text>
+      <StatusBar style="auto" />
+    </SafeAreaView>
+  );
+}
+
+function LoginScreen({ navigation }) {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  const login = async () => {
+    if (!email || !password) return Alert.alert('Please enter email and password');
+    // Mock login: accept any credentials
+    await AsyncStorage.setItem('user', JSON.stringify({ email }));
+    navigation.replace('Home');
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Welcome</Text>
+      <TextInput placeholder="Email" value={email} onChangeText={setEmail} style={styles.input} keyboardType="email-address" autoCapitalize="none" />
+      <TextInput placeholder="Password" value={password} onChangeText={setPassword} style={styles.input} secureTextEntry />
+      <TouchableOpacity style={styles.button} onPress={login}>
+        <Text style={styles.buttonText}>Log in</Text>
+      </TouchableOpacity>
+      <View style={{ marginTop: 16 }}>
+        <Button title="Open Demo Home" onPress={() => navigation.replace('Home')} />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function HomeScreen({ navigation }) {
+  const data = [
+    { id: '1', title: 'Invoices', subtitle: 'Create and manage invoices' },
+    { id: '2', title: 'GST Reports', subtitle: 'Quick GSTR summary' },
+    { id: '3', title: 'Clients', subtitle: 'Client list & contacts' },
+  ];
+
+  const logout = async () => {
+    await AsyncStorage.removeItem('user');
+    navigation.replace('Login');
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.headerRow}>
+        <Text style={styles.title}>Dashboard</Text>
+        <TouchableOpacity onPress={() => navigation.navigate('Contact')}>
+          <Text style={{ color: '#2563EB' }}>Contact</Text>
+        </TouchableOpacity>
+      </View>
+
+      <FlatList
+        data={data}
+        keyExtractor={(i) => i.id}
+        renderItem={({ item }) => (
+          <TouchableOpacity style={styles.card} onPress={() => Alert.alert(item.title)}>
+            <Text style={styles.cardTitle}>{item.title}</Text>
+            <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
+          </TouchableOpacity>
+        )}
+      />
+
+      <View style={{ marginTop: 12 }}>
+        <Button title="Logout" onPress={logout} color="#ef4444" />
+      </View>
+    </SafeAreaView>
+  );
+}
+
+function ContactScreen() {
+  const [name, setName] = useState('');
+  const [message, setMessage] = useState('');
+
+  const submit = () => {
+    if (!name || !message) return Alert.alert('Please fill name and message');
+    Alert.alert('Message ready to send', `Name: ${name}\nMessage: ${message}`);
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <Text style={styles.title}>Contact Us</Text>
+      <TextInput placeholder="Your name" value={name} onChangeText={setName} style={styles.input} />
+      <TextInput placeholder="Message" value={message} onChangeText={setMessage} style={[styles.input, { height: 120 }]} multiline />
+      <TouchableOpacity style={styles.button} onPress={submit}>
+        <Text style={styles.buttonText}>Send</Text>
+      </TouchableOpacity>
+    </SafeAreaView>
+  );
+}
+
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="Splash" component={SplashScreen} />
+        <Stack.Screen name="Login" component={LoginScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="Contact" component={ContactScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+}
+
+const styles = StyleSheet.create({
+  center: { flex:1, justifyContent:'center', alignItems:'center' },
+  container: { flex:1, padding:20 },
+  title: { fontSize:26, fontWeight:'700', color:'#111827' },
+  input: { borderWidth:1, borderColor:'#E5E7EB', padding:12, borderRadius:8, marginTop:12 },
+  button: { backgroundColor:'#2563EB', padding:12, borderRadius:8, alignItems:'center', marginTop:16 },
+  buttonText: { color:'#fff', fontWeight:'600' },
+  headerRow: { flexDirection:'row', justifyContent:'space-between', alignItems:'center' },
+  card: { padding:14, borderRadius:10, backgroundColor:'#F8FAFC', marginTop:12 },
+  cardTitle: { fontWeight:'700' },
+  cardSubtitle: { color:'#6B7280', marginTop:4 }
+});
+
+// assets placeholders
+// Add your images at /assets/icon.png and /assets/splash.png
+
+// Notes & Next steps
+// - Replace mock login with real auth (Firebase/Auth0/custom) when ready.
+// - Provide app name, logo (1024x1024), and primary color if you want custom branding. I used #2563EB.
+// - To build for stores, use EAS: `eas build -p android` and `eas build -p ios` (iOS requires Apple Developer account).
+
+// Store listing draft (paste to Play Store / App Store):
+// App name: Select Accountancy
+// Short description: Simple accounting assistant for small businesses
+// Long description: Select Accountancy helps small business owners manage invoices, view GST summaries, and keep client contacts in one place. Fast, secure starter app with easy-to-use dashboard and contact support.
+
+// End of project starter
+
